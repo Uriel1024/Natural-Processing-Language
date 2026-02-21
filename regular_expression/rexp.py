@@ -1,0 +1,21 @@
+#Construir un modelo que detecte fechas numericas en el formato dd-mm-aaaa, esto con fechas validas
+import re
+#si tiene 31 dias es impar, 30 dias es par, si es divisible entre 4 febrero tiene 28 dias
+#caracter, inicio, enmedio y final  
+
+
+prueba = "01-02-2020"
+#El primer bloque sirve para mostrar los dias del 01 al 09 0[1-9], el or es para los dias del 10 al 29 [12]01-9]  y el tercero es para el 30
+#El segundo valida si es un mes par hasta el 12
+#El tercer bloque es solo valida que tenga 4 digitos y que se encuentre al final
+#Despues se hace practicamente lo mismo con el bloque pero para meses que tienen 31 dias que son los impares
+patron = r"^((0[1-9]|[12][0-9]|3[0])-(2|4|6|8|10|12)-\d{4}$)|((0[1-9]|[12][0-9]|3[1])-(1|3|5|7|9|11)-\d{4}$)"
+
+if re.search(patron,prueba):
+    print(f"La fecha {prueba} es valida")
+else:
+    print(f"La fecha {prueba} no es valida")
+
+
+
+
