@@ -5,7 +5,6 @@ doc2 = "Machine learning utiliza datos y algoritmos para entender patrones"
 doc3 = "El procesamiento de lenguaje natural y modelos de machine learning analizan textos y datos"
 stop_words = {'el', 'de', 'a', 'las', '.', 'y', 'para'}
 
-
 doc1 = doc1.lower().split()
 doc2 = doc2.lower().split()
 doc3 = doc3.lower().split()
@@ -19,7 +18,6 @@ for p in rest:
 	if p not in vocabulario:
 		vocabulario.append(p)
 
-
 rest = [res1,res2,res3]
 #para guardar el total de res
 total = [[0 for _ in range (len(vocabulario))]for _ in range(3)]
@@ -29,26 +27,26 @@ for i in range(3):
 		if vocabulario[j] in rest[i]:
 			total[i][j] += 1
 
-print("Las veces que se repiten las palabras por cada documento son:")
-print(vocabulario)
-for j in range(3):		
-	print(f"Doc{j}: {total[j]} ")
-
+#solo sirve para mostrar mas bonito las palabras y el num de veces que aparece por documento
+rotado = np.array(total)
+rotado = rotado.T
 
 #sumamos los valores de las columnas xd
 frecuencia = (np.sum(total,axis = 0)).tolist()
-print("Las veces que se repiten las palabras en total es:")
-for i in range(len(frecuencia)):
-	print(f"{vocabulario[i]}: {frecuencia[i]}")
 
-probabilidad,idf = [],[]
+print("Las veces que se repiten las palabras por cada documento son: \n")
+
+print(f"{"Palabra":<15} \t Doc(1,2,3) \t Total")
+for j in range(len(vocabulario)):		
+	print(f"{vocabulario[j]:<15}: \t {rotado[j]} \t = {frecuencia[j]}")
+probabilidad, idf = [], []
 
 for i in range (len(frecuencia)):
 	probabilidad.append(frecuencia [i] / len(frecuencia))
 	idf.append(math.log(3/frecuencia[i],10))
 
-print("La probabilidad y el IDF es:")
+print("\n\n\t\t\t probabilidad  \t  IDF ")
 
 for i in range(len(probabilidad)):
-	print(f"{vocabulario[i]}: \t  {probabilidad[i]:.4f} \t {idf[i]:.4f}" )
+	print(f"{vocabulario[i]:<15}: \t  {probabilidad[i]:.4f} \t {idf[i]:.4f}" )
 
