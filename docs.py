@@ -1,30 +1,30 @@
 import numpy as np
 import math
-doc1 = "El procesamiento de lenguaje natural permite a las computadoras comprender textos"
-doc2 = "Machine learning utiliza datos y algoritmos para entender patrones"
-doc3 = "El procesamiento de lenguaje natural y modelos de machine learning analizan textos y datos"
+
+docs = ["El procesamiento de lenguaje natural permite a las computadoras comprender textos",
+		"Machine learning utiliza datos y algoritmos para entender patrones",
+		"El procesamiento de lenguaje natural y modelos de machine learning analizan textos y datos"]
+
 stop_words = {'el', 'de', 'a', 'las', '.', 'y', 'para'}
+res,vocabulario = [], []
 
-doc1 = doc1.lower().split()
-doc2 = doc2.lower().split()
-doc3 = doc3.lower().split()
+for i in range (len(docs)):
+	docs[i] = docs[i].lower().split()
 
-res1 = [p for p in doc1 if p not in stop_words]
-res2 = [p for p in doc2 if p not in stop_words]
-res3 = [p for p in doc3 if p not in stop_words]
-rest = res1 + res2 + res3
-vocabulario = []
-for p in rest:
+
+for i in range(len(docs)):
+	res.append([p for p in docs[i] if p not in stop_words])
+resa = [p for f in res for p in f]
+
+for p in resa:
 	if p not in vocabulario:
 		vocabulario.append(p)
 
-rest = [res1,res2,res3]
-#para guardar el total de res
-total = [[0 for _ in range (len(vocabulario))]for _ in range(3)]
+total = [[0 for _ in range(len(vocabulario))]for _ in range(len(res))]
 
-for i in range(3):
+for i in range(len(docs)):
 	for j in range(len(vocabulario)):
-		if vocabulario[j] in rest[i]:
+		if vocabulario[j] in res[i]:
 			total[i][j] += 1
 
 #solo sirve para mostrar mas bonito las palabras y el num de veces que aparece por documento
